@@ -9,8 +9,11 @@ import "./styles/css/bootstrap.css";
 import "./styles/css/font-awesome.min.css";
 import "./styles/css/style.css";
 import "./styles/css/responsive.css";
+import AuthProvider from "./contexts/AuthContext.jsx";
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<App />
+		<AuthProvider>
+			<App />
+		</AuthProvider>
 	</StrictMode>
 );

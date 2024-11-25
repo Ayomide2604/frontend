@@ -5,7 +5,7 @@ import Home from "./screens/Home";
 import About from "./screens/About";
 import Contact from "./screens/Contact";
 import Product from "./screens/Products";
-
+import Login from "./screens/Login";
 function App() {
 	return (
 		<Router>
@@ -16,6 +16,7 @@ function App() {
 					<Route path="/about" element={<About />} />
 					<Route path="/contact" element={<Contact />} />
 					<Route path="/product" element={<Product />} />
+					<Route path="/login" element={<Login />} />
 				</Routes>
 				<Footer />
 			</div>
