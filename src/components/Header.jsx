@@ -1,13 +1,12 @@
-import React from "react";
-
+import { Link } from "react-router-dom";
 const Header = () => {
 	return (
 		<header className="header_section">
 			<div className="container">
 				<nav className="navbar navbar-expand-lg custom_nav-container">
-					<a className="navbar-brand" href="/">
+					<Link className="navbar-brand" to="/">
 						<img width="250" src="/images/logo.png" alt="Logo" />
-					</a>
+					</Link>
 					<button
 						className="navbar-toggler"
 						type="button"
@@ -21,47 +20,32 @@ const Header = () => {
 					</button>
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav">
-							<li className="nav-item active">
-								<a className="nav-link" href="/">
-									Home <span className="sr-only">(current)</span>
-								</a>
+							<li className="nav-item ">
+								<Link className="nav-link" to="/">
+									Home
+								</Link>
 							</li>
-							<li className="nav-item dropdown">
-								<a
-									className="nav-link dropdown-toggle"
-									href="#"
-									data-toggle="dropdown"
-									role="button"
-									aria-haspopup="true"
-									aria-expanded="true"
-								>
-									<span className="nav-label">
-										Pages <span className="caret"></span>
-									</span>
-								</a>
-								<ul className="dropdown-menu">
-									<li>
-										<a href="/about">About</a>
-									</li>
-									<li>
-										<a href="/testimonial">Testimonial</a>
-									</li>
-								</ul>
+							<li className="nav-item ">
+								<Link className="nav-link" to="/about">
+									About
+								</Link>
 							</li>
+
 							<li className="nav-item">
-								<a className="nav-link" href="/product">
+								<Link className="nav-link" to="/product">
 									Products
-								</a>
+								</Link>
 							</li>
+
 							<li className="nav-item">
-								<a className="nav-link" href="/blog">
-									Blog
-								</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="/contact">
+								<Link className="nav-link" to="/contact">
 									Contact
-								</a>
+								</Link>
+							</li>
+							<li className="nav-item">
+								<Link className="nav-link" to="/">
+									Login
+								</Link>
 							</li>
 							<li className="nav-item">
 								<a className="nav-link" href="#">
