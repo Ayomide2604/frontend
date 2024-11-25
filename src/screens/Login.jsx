@@ -18,11 +18,10 @@ function Login() {
 				password,
 			};
 
-			await login(credentials); // Call the login function from context
+			await login(credentials);
 
 			setError(null);
-			alert("Login successful!");
-			navigate("/"); // Navigate after successful login
+			navigate("/");
 		} catch (err) {
 			console.error(err.response?.data);
 			setError(err.response?.data?.detail || "Invalid username or password");
@@ -31,19 +30,13 @@ function Login() {
 
 	return (
 		<>
-			<section className="inner_page_head">
-				<div className="container_fuild">
-					<div className="row">
-						<div className="col-md-12">
-							<div className="full">
-								<h3>Login</h3>
-							</div>
-						</div>
+			<section className="product_section layout_padding">
+				<div className="container">
+					<div className="heading_container heading_center">
+						<h2>Login</h2>
 					</div>
 				</div>
-			</section>
 
-			<section style={{ padding: "40px 0" }}>
 				<div className="container">
 					<div className="row justify-content-center">
 						<div className="col-md-6">

@@ -59,8 +59,6 @@ const Header = () => {
 											className="nav-link"
 											onClick={logout}
 											style={{
-												background: "none",
-												border: "none",
 												cursor: "pointer",
 											}}
 										>
@@ -77,7 +75,7 @@ const Header = () => {
 							)}
 							<li className="nav-item">
 								<a className="nav-link" href="#">
-									{/* Your SVG code here */}
+									<i className="fa fa-shopping-cart" aria-hidden="true"></i>
 								</a>
 							</li>
 							<form className="form-inline">

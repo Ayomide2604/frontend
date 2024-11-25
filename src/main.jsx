@@ -7,6 +7,7 @@ import "jquery";
 import "popper.js";
 import "./styles/css/bootstrap.css";
 import "./styles/css/font-awesome.min.css";
+import "font-awesome/css/font-awesome.min.css";
 import "./styles/css/style.css";
 import "./styles/css/responsive.css";
 import AuthProvider from "./contexts/AuthContext.jsx";
