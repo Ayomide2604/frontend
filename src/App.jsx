@@ -1,5 +1,3 @@
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Slider from "./components/Slider";
 import Footer from "./components/Footer";
