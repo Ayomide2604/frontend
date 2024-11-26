@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ProductList = () => {
 	const [products, setProducts] = useState([]);
@@ -31,7 +32,6 @@ const ProductList = () => {
 		return <p>{error}</p>;
 	}
 
-	// Placeholder image in case product has no images
 	const placeholderImage = "images/default.png";
 
 	return (
@@ -51,9 +51,9 @@ const ProductList = () => {
 								<div className="box">
 									<div className="option_container">
 										<div className="options">
-											<a href="#" className="option1">
-												Add To Cart
-											</a>
+											<Link to={`/products/${product.id}`} className="option1">
+												View Product
+											</Link>
 											<a href="#" className="option2">
 												Buy Now
 											</a>
@@ -63,7 +63,7 @@ const ProductList = () => {
 										<img
 											src={
 												product.images.length > 0
-													? product.images[0].image // Access the `image` field here
+													? product.images[0].image
 													: placeholderImage
 											}
 											alt={product.name}

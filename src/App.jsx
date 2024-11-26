@@ -6,6 +6,7 @@ import About from "./screens/About";
 import Contact from "./screens/Contact";
 import Product from "./screens/Products";
 import Login from "./screens/Login";
+import ProductDetail from "./components/ProductDetail";
 function App() {
 	return (
 		<Router>
@@ -17,6 +18,7 @@ function App() {
 					<Route path="/contact" element={<Contact />} />
 					<Route path="/product" element={<Product />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/products/:id" element={<ProductDetail />} />
 				</Routes>
 				<Footer />
 			</div>

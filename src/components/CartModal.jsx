@@ -5,6 +5,7 @@ const CartModal = ({ isOpen, onClose }) => {
 	const [cart, setCart] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+	const [updatingItemId, setUpdatingItemId] = useState(null); // Track which item is being updated
 
 	useEffect(() => {
 		if (isOpen) fetchCart();
@@ -28,7 +29,6 @@ const CartModal = ({ isOpen, onClose }) => {
 	const handleDeleteItem = async (itemId) => {
 		try {
 			await api.delete(`/carts/${cart.id}/items/${itemId}/`);
-			// Remove the deleted item from the state
 			setCart((prevCart) => ({
 				...prevCart,
 				cart_items: prevCart.cart_items.filter((item) => item.id !== itemId),
@@ -39,11 +39,13 @@ const CartModal = ({ isOpen, onClose }) => {
 	};
 
 	const handleAddOrUpdateItem = async (itemId, newQuantity) => {
+		setUpdatingItemId(itemId); // Set item being updated
+
 		try {
 			const response = await api.patch(`/carts/${cart.id}/items/${itemId}/`, {
 				quantity: newQuantity,
 			});
-			// Update the cart state with the updated item and preserve the other items
+
 			setCart((prevCart) => ({
 				...prevCart,
 				cart_items: prevCart.cart_items.map((item) =>
@@ -52,7 +54,20 @@ const CartModal = ({ isOpen, onClose }) => {
 			}));
 		} catch (error) {
 			console.error("Failed to update item:", error);
+		} finally {
+			setUpdatingItemId(null); // Reset after update
 		}
+	};
+
+	// Calculate total price
+	const getTotalPrice = () => {
+		if (cart && cart.cart_items) {
+			return cart.cart_items.reduce(
+				(acc, item) => acc + item.quantity * item.product.price,
+				0
+			);
+		}
+		return 0;
 	};
 
 	if (!isOpen) return null;
@@ -85,6 +100,7 @@ const CartModal = ({ isOpen, onClose }) => {
 												handleAddOrUpdateItem(item.id, item.quantity + 1)
 											}
 											className="btn btn-sm btn-primary mx-2"
+											disabled={updatingItemId === item.id}
 										>
 											+
 										</button>
@@ -93,13 +109,16 @@ const CartModal = ({ isOpen, onClose }) => {
 												handleAddOrUpdateItem(item.id, item.quantity - 1)
 											}
 											className="btn btn-sm btn-warning mx-2"
-											disabled={item.quantity === 1}
+											disabled={
+												item.quantity === 1 || updatingItemId === item.id
+											}
 										>
 											-
 										</button>
 										<button
 											onClick={() => handleDeleteItem(item.id)}
 											className="btn btn-sm btn-danger"
+											disabled={updatingItemId === item.id}
 										>
 											Remove
 										</button>
@@ -111,6 +130,7 @@ const CartModal = ({ isOpen, onClose }) => {
 						)}
 					</div>
 					<div className="modal-footer">
+						<h5 className="me-auto">Total: ${getTotalPrice()}</h5>
 						<button
 							type="button"
 							className="btn btn-secondary"
