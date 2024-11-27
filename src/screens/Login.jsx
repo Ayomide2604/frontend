@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Import Link for navigation
 import { AuthContext } from "../contexts/AuthContext";
-import axios from "axios";
 
 function Login() {
 	const [username, setUsername] = useState("");
@@ -100,6 +99,21 @@ function Login() {
 										Login
 									</button>
 								</form>
+								{/* Sign Up Prompt */}
+								<div
+									style={{
+										marginTop: "20px",
+										textAlign: "center",
+										fontSize: "14px",
+									}}
+								>
+									<p>
+										Don't have an account?{" "}
+										<Link to="/signup" style={{ color: "#007bff" }}>
+											Sign up
+										</Link>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
