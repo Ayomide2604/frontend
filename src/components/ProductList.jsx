@@ -6,22 +6,28 @@ const ProductList = () => {
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [nextPage, setNextPage] = useState(null);
+	const [prevPage, setPrevPage] = useState(null);
 
-	useEffect(() => {
-		console.log("Fetching products...");
-
+	const fetchProducts = (url) => {
+		setLoading(true);
 		axios
-			.get("http://127.0.0.1:8000/api/products/")
+			.get(url)
 			.then((response) => {
-				console.log("Products fetched successfully:", response.data);
 				setProducts(response.data.results);
+				setNextPage(response.data.next);
+				setPrevPage(response.data.previous);
 				setLoading(false);
 			})
 			.catch((error) => {
-				console.error("Error fetching products:", error);
 				setError("There was an error fetching the products");
 				setLoading(false);
 			});
+	};
+
+	useEffect(() => {
+		// Fetch the first page of products
+		fetchProducts("http://127.0.0.1:8000/api/products/");
 	}, []);
 
 	if (loading) {
@@ -78,9 +84,32 @@ const ProductList = () => {
 						))
 					)}
 				</div>
-				<div className="btn-box">
-					<a href="#">View All Products</a>
-				</div>
+				<section>
+					<div className="d-flex justify-content-center">
+						<nav>
+							<ul className="pagination">
+								<li className={`page-item ${!prevPage ? "disabled" : ""}`}>
+									<button
+										className="page-link"
+										onClick={() => fetchProducts(prevPage)}
+										disabled={!prevPage}
+									>
+										Previous
+									</button>
+								</li>
+								<li className={`page-item ${!nextPage ? "disabled" : ""}`}>
+									<button
+										className="page-link"
+										onClick={() => fetchProducts(nextPage)}
+										disabled={!nextPage}
+									>
+										Next
+									</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</section>
 			</div>
 		</section>
 	);

@@ -70,6 +70,10 @@ const CartModal = ({ isOpen, onClose }) => {
 		return 0;
 	};
 
+	const handleCheckout = async () => {
+		alert("Checkout successful!");
+	};
+
 	if (!isOpen) return null;
 
 	return (
@@ -90,41 +94,73 @@ const CartModal = ({ isOpen, onClose }) => {
 						) : errorMessage ? (
 							<p>{errorMessage}</p>
 						) : cart && cart.cart_items.length > 0 ? (
-							<ul>
-								{cart.cart_items.map((item) => (
-									<li key={item.id}>
-										{item.product.name} - {item.quantity} x $
-										{item.product.price} = ${item.quantity * item.product.price}
-										<button
-											onClick={() =>
-												handleAddOrUpdateItem(item.id, item.quantity + 1)
-											}
-											className="btn btn-sm btn-primary mx-2"
-											disabled={updatingItemId === item.id}
-										>
-											+
-										</button>
-										<button
-											onClick={() =>
-												handleAddOrUpdateItem(item.id, item.quantity - 1)
-											}
-											className="btn btn-sm btn-warning mx-2"
-											disabled={
-												item.quantity === 1 || updatingItemId === item.id
-											}
-										>
-											-
-										</button>
-										<button
-											onClick={() => handleDeleteItem(item.id)}
-											className="btn btn-sm btn-danger"
-											disabled={updatingItemId === item.id}
-										>
-											Remove
-										</button>
-									</li>
-								))}
-							</ul>
+							<table className="table table-bordered">
+								<thead>
+									<tr>
+										<th scope="col">Image</th>
+										<th scope="col">Product</th>
+										<th scope="col">Price</th>
+										<th scope="col">Quantity</th>
+										<th scope="col">Total</th>
+										<th scope="col">Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{cart.cart_items.map((item) => (
+										<tr key={item.id}>
+											<td>
+												<img
+													src={item.product_image || "images/default.png"}
+													alt={item.product.name}
+													className="img-fluid"
+													style={{
+														width: "50px",
+														height: "50px",
+														objectFit: "cover",
+													}}
+												/>
+											</td>
+											<td>{item.product.name}</td>
+											<td>${item.product.price}</td>
+											<td>
+												<div className="d-flex align-items-center">
+													<button
+														onClick={() =>
+															handleAddOrUpdateItem(item.id, item.quantity + 1)
+														}
+														className="btn btn-sm btn-primary mx-1"
+														disabled={updatingItemId === item.id}
+													>
+														+
+													</button>
+													<span>{item.quantity}</span>
+													<button
+														onClick={() =>
+															handleAddOrUpdateItem(item.id, item.quantity - 1)
+														}
+														className="btn btn-sm btn-warning mx-1"
+														disabled={
+															item.quantity === 1 || updatingItemId === item.id
+														}
+													>
+														-
+													</button>
+												</div>
+											</td>
+											<td>${item.quantity * item.product.price}</td>
+											<td>
+												<button
+													onClick={() => handleDeleteItem(item.id)}
+													className="btn btn-sm btn-danger"
+													disabled={updatingItemId === item.id}
+												>
+													Remove
+												</button>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
 						) : (
 							<p>Your cart is empty.</p>
 						)}
@@ -137,6 +173,14 @@ const CartModal = ({ isOpen, onClose }) => {
 							onClick={onClose}
 						>
 							Close
+						</button>
+						<button
+							type="button"
+							className="btn btn-success"
+							onClick={handleCheckout}
+							disabled={!cart || cart.cart_items.length === 0}
+						>
+							Checkout
 						</button>
 					</div>
 				</div>

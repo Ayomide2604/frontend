@@ -8,6 +8,7 @@ const ProductDetail = () => {
 	const navigate = useNavigate(); // For navigation (e.g., going back)
 
 	const [product, setProduct] = useState(null);
+	const [quantity, setQuantity] = useState(1); // Quantity state, default to 1
 	const [isLoading, setIsLoading] = useState(true);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [cart, setCart] = useState(null); // Track cart state
@@ -48,16 +49,16 @@ const ProductDetail = () => {
 
 	const handleAddToCart = async () => {
 		try {
-			// Call the API to add the product to the cart with a default quantity of 1
+			// Call the API to add the product to the cart
 			const response = await api.post(`/products/${product.id}/add_to_cart/`, {
-				quantity: 1, // Always add the product with a quantity of 1
+				quantity: quantity, // Send the quantity selected by the user
 			});
 
 			// Update the cart state with the new cart data from the API response
 			setCart(response.data.cart);
 
 			// Optionally show a success message
-			console.log(`Added 1 of ${product.name} to the cart.`);
+			console.log(`Added ${quantity} of ${product.name} to the cart.`);
 
 			// Open the CartModal to display the cart
 			setCartModalOpen(true); // Automatically open the cart modal
@@ -97,6 +98,7 @@ const ProductDetail = () => {
 						<h2>{product.name}</h2>
 						<p>{product.description}</p>
 						<p className="h4">Price: ${product.price}</p>
+						<div className="d-flex align-items-center my-3"></div>
 						<button onClick={handleAddToCart} className="btn btn-primary mt-3">
 							Add to Cart
 						</button>
@@ -109,7 +111,7 @@ const ProductDetail = () => {
 				<CartModal
 					isOpen={isCartModalOpen}
 					onClose={() => setCartModalOpen(false)}
-					cart={cart} // Pass the cart state to the modal
+					cart={cart}
 				/>
 			)}
 		</div>
