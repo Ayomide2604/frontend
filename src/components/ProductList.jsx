@@ -27,7 +27,7 @@ const ProductList = () => {
 
 	useEffect(() => {
 		// Fetch the first page of products
-		fetchProducts("https://backend-vvrq.onrender.com/api/");
+		fetchProducts("https://backend-vvrq.onrender.com/api/products/");
 	}, []);
 
 	if (loading) {
