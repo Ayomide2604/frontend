@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
 	const login = async (credentials) => {
 		try {
 			const response = await axios.post(
-				"http://127.0.0.1:8000/api/auth/jwt/create",
+				"https://backend-vvrq.onrender.com/api/auth/jwt/create",
 				credentials
 			);
 
@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
 
 			// Now fetch the user's details
 			const userResponse = await axios.get(
-				"http://127.0.0.1:8000/api/auth/users/me",
+				"https://backend-vvrq.onrender.com/api/auth/users/me",
 				{
 					headers: { Authorization: `Bearer ${access}` },
 				}
@@ -55,7 +55,7 @@ const AuthProvider = ({ children }) => {
 			const fetchUser = async () => {
 				try {
 					const response = await axios.get(
-						"http://127.0.0.1:8000/api/auth/users/me",
+						"https://backend-vvrq.onrender.com/api/auth/users/me",
 						{
 							headers: { Authorization: `Bearer ${token}` },
 						}
