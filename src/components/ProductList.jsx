@@ -27,7 +27,7 @@ const ProductList = () => {
 
 	useEffect(() => {
 		// Fetch the first page of products
-		fetchProducts("http://127.0.0.1:8000/api/products/");
+		fetchProducts("https://backend-vvrq.onrender.com/api/");
 	}, []);
 
 	if (loading) {
